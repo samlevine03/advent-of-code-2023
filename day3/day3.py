@@ -49,51 +49,42 @@ from utils import get_input, input_to_2d_array
 
 
 def scan_number(arr, i, j, scanned):
-    # Check if the current element is not a number or already scanned
     if not arr[i][j].isdigit() or (i, j) in scanned:
         return 0
 
-    # Scan for a complete number
     num = arr[i][j]
-    # Look left
-    k = j - 1
-    while k >= 0 and arr[i][k].isdigit():
-        num = arr[i][k] + num
-        scanned.add((i, k))  # Mark as scanned
-        k -= 1
-    # Look right
-    k = j + 1
-    while k < len(arr[i]) and arr[i][k].isdigit():
-        num += arr[i][k]
-        scanned.add((i, k))  # Mark as scanned
-        k += 1
+    scanned.add((i, j))
+    
+    for k in range(j - 1, -1, -1):
+        if arr[i][k].isdigit():
+            num = arr[i][k] + num
+            scanned.add((i, k))
+        else:
+            break
+    
+    for k in range(j + 1, len(arr[i])):
+        if arr[i][k].isdigit():
+            num += arr[i][k]
+            scanned.add((i, k))
+        else:
+            break
 
-    scanned.add((i, j))  # Mark the original digit as scanned
     return int(num)
 
 
 def sum_numbers_around(arr, i, j, scanned):
-    # Include diagonal directions
     dirs = [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)]
-    sum = 0
-    for dir in dirs:
-        ni, nj = i + dir[0], j + dir[1]
-        # Check bounds
-        if 0 <= ni < len(arr) and 0 <= nj < len(arr[0]):
-            sum += scan_number(arr, ni, nj, scanned)
-    return sum
+    return sum(scan_number(arr, i + di, j + dj, scanned) 
+               for di, dj in dirs 
+               if 0 <= i + di < len(arr) and 0 <= j + dj < len(arr[0]))
 
 
 def sum_part_numbers(arr):
     scanned = set()
-    total_sum = 0
-    # Look through the array for a symbol that isn't a '.'
-    for i in range(len(arr)):
-        for j in range(len(arr[i])):
-            if arr[i][j] != '.' and (i, j) not in scanned and not arr[i][j].isdigit():
-                # Add up all the numbers around it
-                total_sum += sum_numbers_around(arr, i, j, scanned)
-    return total_sum
+    return sum(sum_numbers_around(arr, i, j, scanned) 
+               for i in range(len(arr)) 
+               for j in range(len(arr[i])) 
+               if arr[i][j] != '.' and not arr[i][j].isdigit())
 
 """
 --- Part Two ---
@@ -140,46 +131,39 @@ ratios produces 467835.
 What is the sum of all of the gear ratios in your engine schematic?
 """
 
-def calculate_gear_ratio(arr, i, j, scanned):
-    if arr[i][j] != '*' or (i, j) in scanned:
+def calculate_gear_ratio(grid, row, col, scanned):
+    if grid[row][col] != '*' or (row, col) in scanned:
         return 0
 
+    directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)]
     part_numbers = []
-    dirs = [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)]
-    for dir in dirs:
-        ni, nj = i + dir[0], j + dir[1]
-        if 0 <= ni < len(arr) and 0 <= nj < len(arr[0]):
-            # Scan for a complete number
-            if arr[ni][nj].isdigit() and (ni, nj) not in scanned:
-                num = scan_number(arr, ni, nj, scanned)
-                if num and num not in part_numbers:
-                    part_numbers.append(num)
+    for dr, dc in directions:
+        new_row, new_col = row + dr, col + dc
+        if 0 <= new_row < len(grid) and 0 <= new_col < len(grid[0]) and grid[new_row][new_col].isdigit() and (new_row, new_col) not in scanned:
+            num = scan_number(grid, new_row, new_col, scanned)
+            if num and num not in part_numbers:
+                part_numbers.append(num)
                 if len(part_numbers) > 2:
                     return 0  # Not a gear if more than 2 numbers
 
-    scanned.add((i, j))  # Mark the gear as processed
-    if len(part_numbers) == 2:
-        # Multiply the two part numbers to get the gear ratio
-        return part_numbers[0] * part_numbers[1]
-    else:
-        return 0
+    scanned.add((row, col))
+    return part_numbers[0] * part_numbers[1] if len(part_numbers) == 2 else 0
 
 
 def sum_gear_ratios(arr):
     scanned = set()
-    gear_ratio_sum = 0
-    for i in range(len(arr)):
-        for j in range(len(arr[i])):
-            if arr[i][j] == '*':
-                gear_ratio_sum += calculate_gear_ratio(arr, i, j, scanned)
-    return gear_ratio_sum
-
+    return sum(calculate_gear_ratio(arr, i, j, scanned) 
+               for i in range(len(arr)) 
+               for j in range(len(arr[i])) 
+               if arr[i][j] == '*')
 
 def main():
     arr = input_to_2d_array(get_input())
-    print(sum_part_numbers(arr))
-    print(sum_gear_ratios(arr))
-    
+    part1 = sum_part_numbers(arr)
+    part2 = sum_gear_ratios(arr)
+
+    print(f'Part 1: {part1}')
+    print(f'Part 2: {part2}')
 
     return
 
