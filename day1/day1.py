@@ -42,6 +42,7 @@ In this example, the calibration values of these four lines are
 Consider your entire calibration document. What is the sum of all of the calibration values?
 """
 
+import re
 from utils import get_input
     
 def string_to_value(string):
@@ -57,6 +58,13 @@ def string_to_value(string):
             j -= 1
 
     return int(string[i] + string[j])
+
+def extract_first_last_digits(string):
+    """
+    Extract the first and last digits from the string.
+    """
+    digits = re.findall(r'\d', string)
+    return int(digits[0] + digits[-1]) if digits else 0
 
 """
 --- Part Two ---
@@ -103,12 +111,35 @@ def word_to_value(word):
         i += 1
     return word
 
-def main():
-    strings = get_input()
-    strings = [word_to_value(string) for string in strings]
-    total = sum(string_to_value(string) for string in strings)
-    print(total)
+def replace_spelled_numbers(word):
+    """
+    Replace spelled-out numbers with their digit equivalents in the given word.
+    This version uses regular expressions for efficient searching and replacing.
 
+    When pattern.sub() is applied to the string, it scans the string from left
+    to right and replaces each match with the result of the lambda function. 
+    This ensures that we still replace the numbers in the correct order. 
+    """
+    num_map = {
+        'one': '1', 'two': '2', 'three': '3', 'four': '4',
+        'five': '5', 'six': '6', 'seven': '7', 'eight': '8', 'nine': '9'
+    }
+    
+    pattern = re.compile('|'.join(num_map.keys()))
+    return pattern.sub(lambda x: num_map[x.group()], word)
+
+
+def main():
+    # strings = get_input()
+    # strings = [word_to_value(string) for string in strings]
+    # total = sum(string_to_value(string) for string in strings)
+    # print(total)
+
+    # pythonic solution
+    lines = get_input()
+    converted_lines = [replace_spelled_numbers(line) for line in lines]
+    total = sum(extract_first_last_digits(line) for line in converted_lines)
+    print(total)
 
 if __name__ == '__main__':
     main()
