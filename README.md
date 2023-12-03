@@ -2,7 +2,7 @@
 
 This repository contains my solutions for the [Advent of Code](https://adventofcode.com/) 2023 challenges. Advent of Code is an annual set of Christmas-themed programming puzzles that can be solved in any programming language.
 
-I'm challenging myself to be more **Pythonic**, both at the code level and on a meta level. As such, my goal is to maximize simplicity, readability, and "maintainability." 
+I'm challenging myself to be more **Pythonic**, both at the code level and on a meta level. As such, my goal is to maximize simplicity, readability, and "maintainability." It's worth noting that my solutions will often go through several iterations: first a brute force method, followed by a more efficient (and pythonic) solution. The code you see in each solution will almost never be the code that I used to initially solve each puzzle. 
 
 ## Project Structure
 
@@ -36,7 +36,7 @@ This command executes the script for Day 3. Replace `day3` with the appropriate 
 
 ## Getting Started
 
-To get started with running these solutions, clone the repository, and ensure you have Python installed on your system. Each day's script can be run using the helper script in the `bin` folder as described above.
+To get started with running these solutions, clone the repository, and ensure you have Python installed on your system. Each day's script can be run using the helper script in the `bin` folder as described above. That being said, I highly recommend you try out the problems yourself before looking at my solutions! 
 
 ## Contributing
 
