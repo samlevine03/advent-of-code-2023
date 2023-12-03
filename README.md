@@ -1,6 +1,6 @@
 # Advent of Code Solutions
 
-This repository contains my solutions for the [Advent of Code](https://adventofcode.com/) challenges. Advent of Code is an annual set of Christmas-themed programming puzzles that can be solved in any programming language.
+This repository contains my solutions for the [Advent of Code](https://adventofcode.com/) 2023 challenges. Advent of Code is an annual set of Christmas-themed programming puzzles that can be solved in any programming language.
 
 ## Project Structure
 
