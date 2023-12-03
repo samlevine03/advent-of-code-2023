@@ -2,6 +2,8 @@
 
 This repository contains my solutions for the [Advent of Code](https://adventofcode.com/) 2023 challenges. Advent of Code is an annual set of Christmas-themed programming puzzles that can be solved in any programming language.
 
+I'm challenging myself to be more **Pythonic**, both at the code level and on a meta level. As such, my goal is to maximize simplicity, readability, and "maintainability." 
+
 ## Project Structure
 
 The project is organized into separate directories for each day's challenge, a `utils` folder for common functionalities, and a `bin` folder to facilitate easy script execution.
