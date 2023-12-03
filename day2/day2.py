@@ -53,12 +53,6 @@ IDs of those games?
 
 """
 
-# def get_input():
-#     """
-#     Get the input from the file.
-#     """
-#     with open('input.txt', 'r') as f:
-#         return f.read().splitlines()
 from utils import get_input
     
 
