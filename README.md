@@ -40,4 +40,4 @@ To get started with running these solutions, clone the repository, and ensure yo
 
 ## Contributing
 
-Feel free to explore the solutions and suggest any improvements or alternative approaches.
+Feel free to explore the solutions and suggest any improvements or alternative approaches. I'm still a rookie when it comes to Pythonic programming (and meta programming). If you have any feed back on how I could structure things, let me know!
