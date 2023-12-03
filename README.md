@@ -17,7 +17,6 @@ The `utils` folder is a central place for code that is reused across different d
 #### Contents of Utils:
 
 - `input_utils.py`: Functions for reading and processing input data.
-- `other_utils.py`: Other utility functions used across multiple days.
 
 ### Bin Folder
 
