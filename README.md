@@ -28,7 +28,7 @@ The `bin` folder contains scripts to easily run the solutions for each day. Inst
 To run a solution for a specific day, use the following command from the root directory:
 
 ```
-bin/run_day day3
+bin/run day3
 ```
 
 This command executes the script for Day 3. Replace `day3` with the appropriate day you want to run.
