@@ -54,31 +54,25 @@ IDs of those games?
 """
 
 from utils import get_input
-    
 
-def check_game(game):
-    """
-    Get the largest sets from the game.
-    """
-    largest_sets = {
-        'red': 0,
-        'green': 0,
-        'blue': 0
-    }
-    game_id, game = game.split(':')
+def parse_game_data(game):
+    game_id, data = game.split(':')
     game_id = int(game_id.split()[1])
-    game = game.replace(';', ',')
-    grabs = game.split(',')
-    for grab in grabs:
+    data = data.replace(';', ',').split(',')
+    largest_sets = {'red': 0, 'green': 0, 'blue': 0}
+
+    for grab in data:
         num, color = grab.split()
         num = int(num)
-        if num > largest_sets[color]:
-            largest_sets[color] = num
-    
-    if largest_sets['red'] <= 12 and largest_sets['green'] <= 13 and largest_sets['blue'] <= 14:
+        largest_sets[color] = max(largest_sets[color], num)
+
+    return game_id, largest_sets
+
+def check_game(game):
+    game_id, largest_sets = parse_game_data(game)
+    if all(largest_sets[color] <= limit for color, limit in [('red', 12), ('green', 13), ('blue', 14)]):
         return game_id
-    else:
-        return 0
+    return 0
 
 """
 --- Part Two ---
@@ -120,42 +114,19 @@ the sum of the power of these sets?
 """
 
 def get_power_set(game):
-    """
-    Get the largest sets from the game.
-    """
-    largest_sets = {
-        'red': 0,
-        'green': 0,
-        'blue': 0
-    }
-    game_id, game = game.split(':')
-    game_id = int(game_id.split()[1])
-    game = game.replace(';', ',')
-    grabs = game.split(',')
-    for grab in grabs:
-        num, color = grab.split()
-        num = int(num)
-        if num > largest_sets[color]:
-            largest_sets[color] = num
-    
+    _, largest_sets = parse_game_data(game)
     return largest_sets['red'] * largest_sets['green'] * largest_sets['blue']
+
 
 def main():
     """
     Main program.
     """
     games = get_input()
-    total = 0
-    for game in games:
-        possible = check_game(game)
-        total += possible
-
-    print(total)
-
-    power_total = 0
-    for game in games:
-        power_total += get_power_set(game)
-    print(power_total)
+    total_possible = sum(check_game(game) for game in games)
+    total_power = sum(get_power_set(game) for game in games)
+    print(f'Part 1: {total_possible}')
+    print(f'Part 2: {total_power}')
 
 
 if __name__ == '__main__':
