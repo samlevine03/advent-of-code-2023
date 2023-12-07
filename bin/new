@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Check if the argument is provided
+if [ $# -eq 0 ]; then
+    echo "Usage: bin/new <dayX>"
+    exit 1
+fi
+
+# Create the directory and the Python file
+DAY_DIR=$1
+mkdir -p "./$DAY_DIR"
+touch "./$DAY_DIR/$DAY_DIR.py"
+touch "./$DAY_DIR/input.txt"
+
+echo "Created folder and initial contents for $DAY_DIR"
