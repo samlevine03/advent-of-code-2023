@@ -17,7 +17,6 @@ INSTRUCTIONS=$(python3 bin/fetch_instructions.py $DAY_NUM)
 # Check if instructions are valid
 if [ "$INSTRUCTIONS" == "Invalid day or the day's challenge is not yet available. (HTTP Status: 404)" ]; then
     echo "Unable to fetch instructions: Invalid day or the day's challenge is not yet available."
-    # rm -r "$DIR_PATH"  # Delete the directory and its contents
     exit 1
 fi
 
