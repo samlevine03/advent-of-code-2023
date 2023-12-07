@@ -43,7 +43,7 @@ Here are some of the highlights:
 
 - **Bash Scripting**: Shell scripts are utilized to automate common tasks, such as creating new challenge folders and running solutions.
 - **Beautiful Soup**: Python library used for parsing HTML content, particularly for scraping challenge instructions.
-- **re**: I've dabbled, but this was *mostly* new to me. Used to vastly simplify some solutions where key operations involved parsing text. 
+- **re**: I've dabbled, but this was *mostly* new to me. Used regular expressions to vastly simplify some solutions where key operations involved parsing text. 
 
 
 ## Getting Started
