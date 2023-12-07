@@ -8,8 +8,36 @@ fi
 
 # Create the directory and the Python file
 DAY_DIR=$1
+DAY_NUM=$(echo $DAY_DIR | grep -o -E '[0-9]+')
 mkdir -p "./$DAY_DIR"
 touch "./$DAY_DIR/$DAY_DIR.py"
 touch "./$DAY_DIR/input.txt"
 
-echo "Created folder and initial contents for $DAY_DIR"
+# Add default content to the Python file
+cat <<EOF > "./$DAY_DIR/$DAY_DIR.py"
+from utils import get_input
+
+"""
+Day $DAY_NUM Part 1 Instructions Go Here
+"""
+
+
+
+"""
+Day $DAY_NUM Part 2 Instructions Go Here
+"""
+
+
+
+
+
+# -------- MAIN FUNCTION -------- #
+def main():
+    lines = get_input()
+    pass
+
+if __name__ == "__main__":
+    main()
+EOF
+
+echo "Created $DAY_DIR directory and initial files"

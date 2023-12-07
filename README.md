@@ -32,7 +32,13 @@ To run a solution for a specific day, use the following command from the root di
 bin/run day3
 ```
 
-This command executes the script for Day 3. Replace `day3` with the appropriate day you want to run.
+To create a new folder for a specific day, use the following command from the root directory:
+```
+bin/new day3
+```
+This creates the directory, day3.py preloaded with utils imported at the top, and a blank input.txt. 
+
+These commands execute the script for Day 3. Replace `day3` with the appropriate day you want to run.
 
 ## Getting Started
 
