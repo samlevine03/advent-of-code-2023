@@ -48,7 +48,7 @@ Here are some of the highlights:
 
 ## Getting Started
 
-To get started with running these solutions, clone the repository, and ensure you have Python installed on your system. Each day's script can be run using the helper script in the `bin` folder as described above. That being said, I highly recommend you try out the problems yourself before looking at my solutions! In order to use `bin/new`, you'll your session cookie to grab your unique input. Open up [https://adventofcode.com/2023/day/1/input] and go to your developer tools. You should be able to find your session cookie in Storage -> Cookies. You can also find it in Network -> input -> Request Headers. 
+To get started with running these solutions, clone the repository, and ensure you have Python installed on your system. Each day's script can be run using the helper script in the `bin` folder as described above. That being said, I highly recommend you try out the problems yourself before looking at my solutions! In order to use `bin/new`, you'll your session cookie to grab your unique input. Open up [Day 1's Input](https://adventofcode.com/2023/day/1/input) and go to your developer tools. You should be able to find your session cookie in Storage -> Cookies. You can also find it in Network -> input -> Request Headers. 
 
 ## Contributing
 
