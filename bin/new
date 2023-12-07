@@ -9,16 +9,29 @@ fi
 # Create the directory and the Python file
 DAY_DIR=$1
 DAY_NUM=$(echo $DAY_DIR | grep -o -E '[0-9]+')
+DIR_PATH="./$DAY_DIR"
+
+echo "Fetching instructions for Day $DAY_NUM"
+INSTRUCTIONS=$(python3 bin/fetch_instructions.py $DAY_NUM)
+
+# Check if instructions are valid
+if [ "$INSTRUCTIONS" == "Invalid day or the day's challenge is not yet available. (HTTP Status: 404)" ]; then
+    echo "Unable to fetch instructions: Invalid day or the day's challenge is not yet available."
+    # rm -r "$DIR_PATH"  # Delete the directory and its contents
+    exit 1
+fi
+
 mkdir -p "./$DAY_DIR"
 touch "./$DAY_DIR/$DAY_DIR.py"
 touch "./$DAY_DIR/input.txt"
 
 # Add default content to the Python file
+echo "Writing instructions to Day $DAY_NUM Python file"
 cat <<EOF > "./$DAY_DIR/$DAY_DIR.py"
 from utils import get_input
 
 """
-Day $DAY_NUM Part 1 Instructions Go Here
+$INSTRUCTIONS
 """
 
 
@@ -40,4 +53,15 @@ if __name__ == "__main__":
     main()
 EOF
 
-echo "Created $DAY_DIR directory and initial files"
+echo "Fetching input for Day $DAY_NUM"
+INPUT=$(python3 bin/fetch_input.py $DAY_NUM)
+echo "Writing input to Day $DAY_NUM input file"
+echo "$INPUT" > "./$DAY_DIR/input.txt"
+
+echo "Created $DAY_DIR directory with $DAY_DIR.py, and input.txt"
+
+# Prompt the user to open the URL in the default web browser
+read -p "Do you want to open https://adventofcode.com/2023/day/$DAY_NUM in your default web browser? (y/N): " choice
+if [[ $choice =~ ^[Yy]$ ]]; then
+    open "https://adventofcode.com/2023/day/$DAY_NUM"
+fi

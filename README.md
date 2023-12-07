@@ -2,7 +2,7 @@
 
 This repository contains my solutions for the [Advent of Code](https://adventofcode.com/) 2023 challenges. Advent of Code is an annual set of Christmas-themed programming puzzles that can be solved in any programming language.
 
-I'm challenging myself to be more **Pythonic**, both at the code level and on a meta level. As such, my goal is to maximize simplicity, readability, and "maintainability." It's worth noting that my solutions will often go through several iterations: first a brute force method, followed by a more efficient (and pythonic) solution. The code you see in each solution will almost never be the code that I used to initially solve each puzzle. 
+I'm challenging myself to be more ***Pythonic***, both at the code level and on a meta level. As such, my goal is to maximize simplicity, readability, and "maintainability." It's worth noting that my solutions will often go through several iterations: first a brute force method, followed by a more efficient (and pythonic) solution. The code you see in each solution will almost never be the code that I used to initially solve each puzzle. 
 
 ## Project Structure
 
@@ -32,10 +32,19 @@ To run a solution for a specific day, use the following command from the root di
 bin/run day3
 ```
 
-To create a new folder for a specific day (pre-loaded with utils imported and a blank input file), use the following command from the root directory:
+To create a new folder for a specific day (pre-loaded with utils imported and the input file), use the following command from the root directory:
 ```
 bin/new day3
 ```
+
+## Stuff I've Learned
+
+Here are some of the highlights:
+
+- **Bash Scripting**: Shell scripts are utilized to automate common tasks, such as creating new challenge folders and running solutions.
+- **Beautiful Soup**: Python library used for parsing HTML content, particularly for scraping challenge instructions.
+- **re**: I've dabbled, but this was *mostly* new to me. Used to vastly simplify some solutions where key operations involved parsing text. 
+
 
 ## Getting Started
 
