@@ -4,9 +4,9 @@ This repository contains my solutions for the [Advent of Code](https://adventofc
 
 I'm challenging myself to be more ***Pythonic***, both at the code level and on a meta level. As such, my goal is to maximize simplicity, readability, and "maintainability." It's worth noting that my solutions will often go through several iterations: first a brute force method, followed by a more efficient (and pythonic) solution. The code you see in each solution will almost never be the code that I used to initially solve each puzzle. 
 
-A couple other rules I'm following:
-- No ChatGPT. I'm still using Copilot since it tends to be a timesaver and help me avoid syntax errors without actually giving me answers.
-- No work-arounds for slow code. By Day 5 things have already reached a point where naive solutions are too slow or memory intensive. Rather than trying to resolve this using libraries like multiprocessing or Cython, or another language, I want to focus on improving my implementation.
+## Rules (for myself)
+- No ChatGPT. I'm allowing Copilot since it's a timesaver and helps me avoid syntax errors without actually giving me answers.
+- No work-arounds for slow code. By Day 5 naive solutions are becoming too slow or memory intensive. Rather than trying to get around this with libraries like multiprocessing or Cython, I want to focus on improving my underlying approach in vanilla Python. 
 
 ## Project Structure
 
