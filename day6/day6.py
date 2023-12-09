@@ -98,7 +98,7 @@ def get_race_records(lines):
     return races
 
 
-def num_ways_to_win(races):
+def mult_num_ways_to_win(races):
     mult = 1
     for time, dist in races:
         num_ways = 0
@@ -113,22 +113,57 @@ def num_ways_to_win(races):
 
 
 """
-Day 6 Part 2 Instructions Go Here
+--- Part Two ---
+
+As the race is about to start, you realize the piece of paper with race times
+and record distances you got earlier actually just has very bad kerning. There's
+really only one race - ignore the spaces between the numbers on each line.
+
+So, the example from before:
+
+Time:      7  15   30
+Distance:  9  40  200
+
+...now instead means this:
+
+Time:      71530
+Distance:  940200
+
+Now, you have to figure out how many ways there are to win this single race.
+In this example, the race lasts for 71530 milliseconds and the record distance
+you need to beat is 940200 millimeters. You could hold the button anywhere from
+14 to 71516 milliseconds and beat the record, a total of 71503 ways!
+
+How many ways can you beat the record in this one much longer race?
+
 """
 
     
-    
+def get_new_race_records(lines):
+    length, record = int(lines[0].split(':')[1].replace(' ','')), int(lines[1].split(':')[1].replace(' ',''))
+    return (length, record)
 
+def num_ways_to_win(race):
+    time, dist = race
+    num_ways = 0
+    for charge_time in range(time):
+        travel_time = time - charge_time
+        travel = charge_time * travel_time
+        if travel > dist:
+            num_ways += 1
+    return num_ways
 
 
 # -------- MAIN FUNCTION -------- #
 def main():
     lines = get_input()
     races = get_race_records(lines)
-    result = num_ways_to_win(races)
+    result = mult_num_ways_to_win(races)
     print(f"Part 1 Result: {result}")
 
-    pass
+    race = get_new_race_records(lines)
+    result = num_ways_to_win(race)
+    print(f"Part 2 Result: {result}")
 
 if __name__ == "__main__":
     main()
