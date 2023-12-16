@@ -52,7 +52,7 @@ Here are some of the highlights:
 
 ## Getting Started
 
-To get started with running these solutions, clone the repository, and ensure you have Python installed on your system. Then from the root directory, run bin/setup. If you have any issues with the scripts, try `chmod +x [bin/script_name]`.
+To get started with running these solutions, clone the repository, and ensure you have Python installed on your system. Then from the root directory, run `bin/setup`. If you have any issues with the scripts, try `chmod +x [bin/script_name]`.
 
 Each day's script can be run using the helper script in the `bin` folder as described above. That being said, I highly recommend you try out the problems yourself before looking at my solutions! 
 
