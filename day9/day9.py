@@ -48,20 +48,46 @@ To extrapolate, start by adding a new zero to the end of your list of zeroes; be
 ```  So, the next value of the third history is `*68*` .  If you find the next value for each history in this example and add them together, you get `*114*` .  Analyze your OASIS report and extrapolate the next value for each history. *What is the sum of these extrapolated values?*
 """
 
+def extrapolate(nums):
+    diffs = [nums[i+1] - nums[i] for i in range(len(nums) - 1)]
+    last_diff_list = [nums[-1]]
+    while any(diffs):
+        last_diff_list.append(diffs[-1])
+        diffs = [diffs[i+1] - diffs[i] for i in range(len(diffs) - 1)]
+    return sum(last_diff_list)
 
 
 """
-Day 9 Part 2 Instructions Go Here
+--- Part Two ---
+
+Of course, it would be nice to have even more history included in your report. Surely it's safe to just extrapolate backwards as well, right?
+
+For each history, repeat the process of finding differences until the sequence of differences is entirely zero. Then, rather than adding a zero to the end and filling in the next values of each previous sequence, you should instead add a zero to the beginning of your sequence of zeroes, then fill in new first values for each previous sequence.
+
+In particular, here is what the third example history looks like when extrapolating back in time:
+
+5  10  13  16  21  30  45
+  5   3   3   5   9  15
+   -2   0   2   4   6
+      2   2   2   2
+        0   0   0
+
+Adding the new values on the left side of each sequence from bottom to top eventually reveals the new left-most history value: 5.
+
+Doing this for the remaining example data above results in previous values of -3 for the first history and 0 for the second history. Adding all three new values together produces 2.
+
+Analyze your OASIS report again, this time extrapolating the previous value for each history. What is the sum of these extrapolated values?
+
 """
-
-
-
-
 
 # -------- MAIN FUNCTION -------- #
 def main():
     lines = get_input()
-    pass
+    total = sum([extrapolate([int(n) for n in line.split()]) for line in lines])
+    print(f"Part 1: {total}")
+    
+    total = sum([extrapolate([int(n) for n in line.split()][::-1]) for line in lines])
+    print(f"Part 2: {total}")
 
 if __name__ == "__main__":
     main()
