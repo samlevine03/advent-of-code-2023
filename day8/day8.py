@@ -95,24 +95,60 @@ Simultaneously start on every node that ends with A. How many steps does it take
 
 
 def part2(instructions, nodes_list):
+
     nodes_dict = {node.split(" = ")[0]: node.split(" = ")[1].strip("()").split(", ") for node in nodes_list}
     curr_nodes = curr_nodes = [node for node in nodes_dict if node.endswith("A")]
 
-    steps = 0
-    instr_idx = 0
-    while not all(node.endswith("Z") for node in curr_nodes):
-        # print how many nodes ends with Z
-        num_z = sum(node.endswith("Z") for node in curr_nodes)
-        if num_z > 2:
-            print(curr_nodes, num_z, steps)
+    def finish_node(start):
+        curr = start
+        instr_idx = 0
+        steps = 0
+        while not curr.endswith("Z"):
+            if instructions[instr_idx] == "R":
+                curr = nodes_dict[curr][1]
+            elif instructions[instr_idx] == "L":
+                curr = nodes_dict[curr][0]
+            instr_idx = (instr_idx + 1) % len(instructions)
+            steps += 1
+        return steps
+    
+    steps_for_each = [finish_node(node) for node in curr_nodes]
+
+    # find the LCM of all of the steps
+    def gcd(a, b):
+        if a == 0:
+            return b
+        return gcd(b % a, a)
+    
+    def lcm(a, b):
+        return (a * b) // gcd(a, b)
+    
+    def find_lcm(steps):
+        lcm_val = steps[0]
+        for i in range(1, len(steps)):
+            lcm_val = lcm(lcm_val, steps[i])
+        return lcm_val
+    
+    return find_lcm(steps_for_each)
+
+    # nodes_dict = {node.split(" = ")[0]: node.split(" = ")[1].strip("()").split(", ") for node in nodes_list}
+    # curr_nodes = curr_nodes = [node for node in nodes_dict if node.endswith("A")]
+
+    # steps = 0
+    # instr_idx = 0
+    # while not all(node.endswith("Z") for node in curr_nodes):
+    #     # print how many nodes ends with Z
+    #     num_z = sum(node.endswith("Z") for node in curr_nodes)
+    #     if num_z > 2:
+    #         print(curr_nodes, num_z, steps)
 
 
-        direction = instructions[instr_idx]
-        curr_nodes = [nodes_dict[node][0 if direction == "L" else 1] for node in curr_nodes]
-        instr_idx = (instr_idx + 1) % len(instructions)
-        steps += 1
+    #     direction = instructions[instr_idx]
+    #     curr_nodes = [nodes_dict[node][0 if direction == "L" else 1] for node in curr_nodes]
+    #     instr_idx = (instr_idx + 1) % len(instructions)
+    #     steps += 1
 
-    print(curr_nodes)
+    # print(curr_nodes)
 
     return steps
 
