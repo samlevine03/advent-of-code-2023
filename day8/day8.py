@@ -94,9 +94,7 @@ Simultaneously start on every node that ends with A. How many steps does it take
 """
 
 
-def part2(instructions, nodes_list):
-
-    nodes_dict = {node.split(" = ")[0]: node.split(" = ")[1].strip("()").split(", ") for node in nodes_list}
+def part2(instructions, nodes_dict):
     curr_nodes = curr_nodes = [node for node in nodes_dict if node.endswith("A")]
 
     def finish_node(start):
@@ -131,27 +129,6 @@ def part2(instructions, nodes_list):
     
     return find_lcm(steps_for_each)
 
-    # nodes_dict = {node.split(" = ")[0]: node.split(" = ")[1].strip("()").split(", ") for node in nodes_list}
-    # curr_nodes = curr_nodes = [node for node in nodes_dict if node.endswith("A")]
-
-    # steps = 0
-    # instr_idx = 0
-    # while not all(node.endswith("Z") for node in curr_nodes):
-    #     # print how many nodes ends with Z
-    #     num_z = sum(node.endswith("Z") for node in curr_nodes)
-    #     if num_z > 2:
-    #         print(curr_nodes, num_z, steps)
-
-
-    #     direction = instructions[instr_idx]
-    #     curr_nodes = [nodes_dict[node][0 if direction == "L" else 1] for node in curr_nodes]
-    #     instr_idx = (instr_idx + 1) % len(instructions)
-    #     steps += 1
-
-    # print(curr_nodes)
-
-    return steps
-
 # -------- MAIN FUNCTION -------- #
 def main():
     lines = get_input()
@@ -171,7 +148,14 @@ def main():
     num_steps = part1(instructions, nodes_dict)
     print(f"Part 1: {num_steps}")
 
-    num_steps = part2(instructions, nodes)
+
+    # quick explanation, cuz this was a total shot in the dark
+    # i basically just guessed that for any respective start node, it would just have one
+    # corresponding end node, and it would just continously go through the loop traveling between them
+    # so i just found the number of steps it took to get from each start node to its end node, and then 
+    # found the LCM of all of those steps
+
+    num_steps = part2(instructions, nodes_dict)
     print(f"Part 2: {num_steps}")
 
     pass
