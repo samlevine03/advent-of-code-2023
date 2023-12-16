@@ -1,3 +1,7 @@
 #!/bin/bash
 
 python3 -m pip install -r bin/requirements.txt
+
+touch .env
+echo "ADVENT_OF_CODE_SESSION=" >> .env
+echo "Don't forget to add your Advent of Code session cookie to .env!"
