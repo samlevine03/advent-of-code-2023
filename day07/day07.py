@@ -8,23 +8,21 @@ def get_type(hand):
     """
     Returns the rank of a hand
     """
-    type = 0
     counts = {card: hand.count(card) for card in hand}
     if 5 in counts.values():
-        type = 7
+        return 7
     elif 4 in counts.values():
-        type = 6
+        return 6
     elif 3 in counts.values() and 2 in counts.values():
-        type = 5
+        return 5
     elif 3 in counts.values():
-        type = 4
+        return 4
     elif list(counts.values()).count(2) == 2:
-        type = 3
+        return 3
     elif 2 in counts.values():
-        type = 2
+        return 2
     else:
-        type = 1
-    return type
+        return 1
 
 
 def hand_to_sort_value(hand):
@@ -75,7 +73,7 @@ def get_type_joker(hand):
 
 
 def hand_to_sort_value_joker(hand):
-    card_values = {"A": 14, "K": 13, "Q": 12, "J": 0, "T": 10, "9": 9, "8": 8, "7": 7, "6": 6, "5": 5, "4": 4, "3": 3, "2": 2}
+    card_values = {**{str(i): i for i in range(2, 10)}, "A": 14, "K": 13, "Q": 12, "J": 0, "T": 10}
     return tuple(card_values[card] for card in hand)
 
 # -------- MAIN FUNCTION -------- #
