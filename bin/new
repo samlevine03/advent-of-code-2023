@@ -6,40 +6,29 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-# Create the directory and the Python file
-DAY_DIR=$1
-DAY_NUM=$(echo $DAY_DIR | grep -o -E '[0-9]+')
+# Extract the day number and format it with leading zeros
+RAW_DAY=$1
+DAY_NUM=$(echo $RAW_DAY | grep -o -E '[0-9]+')
+FORMATTED_DAY_NUM=$(printf "%02d" $DAY_NUM)
+DAY_DIR="day$FORMATTED_DAY_NUM"
 DIR_PATH="./$DAY_DIR"
-
-echo "[1/5] Fetching instructions for Day $DAY_NUM..."
-INSTRUCTIONS=$(python3 bin/fetch_instructions.py $DAY_NUM)
-
-# Check if instructions are valid
-if [ "$INSTRUCTIONS" == "Invalid day or the day's challenge is not yet available. (HTTP Status: 404)" ]; then
-    echo "Unable to fetch instructions: Invalid day or the day's challenge is not yet available."
-    exit 1
-fi
 
 mkdir -p "./$DAY_DIR"
 touch "./$DAY_DIR/$DAY_DIR.py"
 touch "./$DAY_DIR/input.txt"
 
 # Add default content to the Python file
-echo "[2/5] Writing instructions to Day $DAY_NUM Python file..."
+echo "[1/4] Preparing day$FORMATTED_DAY_NUM.py..."
 cat <<EOF > "./$DAY_DIR/$DAY_DIR.py"
+# https://adventofcode.com/2023/day/$FORMATTED_DAY_NUM
+
 from utils import get_input
 
-"""
-$INSTRUCTIONS
-"""
+# Part 1
 
 
 
-"""
-Day $DAY_NUM Part 2 Instructions Go Here
-"""
-
-
+# Part 2
 
 
 
@@ -52,15 +41,9 @@ if __name__ == "__main__":
     main()
 EOF
 
-echo "[3/5] Fetching input for Day $DAY_NUM..."
-INPUT=$(python3 bin/fetch_input.py $DAY_NUM)
-echo "[4/5] Writing input to Day $DAY_NUM input file..."
+echo "[2/4] Fetching input for Day $FORMATTED_DAY_NUM..."
+INPUT=$(python3 bin/fetch_input.py $FORMATTED_DAY_NUM)
+echo "[3/4] Writing input to Day $FORMATTED_DAY_NUM input file..."
 echo "$INPUT" > "./$DAY_DIR/input.txt"
 
-echo "[5/5] Created $DAY_DIR directory with $DAY_DIR.py, and input.txt"
-
-# Prompt the user to open the URL in the default web browser
-read -p "[OPTION] Do you want to open https://adventofcode.com/2023/day/$DAY_NUM in your default web browser? (y/N): " choice
-if [[ $choice =~ ^[Yy]$ ]]; then
-    open "https://adventofcode.com/2023/day/$DAY_NUM"
-fi
+echo "[4/4] Created $DAY_DIR directory with $DAY_DIR.py, and input.txt"

@@ -2,8 +2,11 @@
 
 # Usage: bin/run_day day3
 
-# Get the day's module name (e.g., "day3" from "day3")
-DAY_MODULE="${1}"
+# Extract the day number and format it with leading zeros
+RAW_DAY="${1}"
+DAY_NUM=$(echo $RAW_DAY | grep -o -E '[0-9]+')
+FORMATTED_DAY_NUM=$(printf "%02d" $DAY_NUM)
+DAY_MODULE="day$FORMATTED_DAY_NUM"
 
 # Navigate to the project root directory (assumes bin is one level deep)
 cd "$(dirname "$0")/.."

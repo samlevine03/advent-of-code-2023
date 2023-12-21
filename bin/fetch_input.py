@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 
 def fetch_puzzle_input(day_num, session_cookie):
+    day_num = str(int(day_num))
     url = f"https://adventofcode.com/2023/day/{day_num}/input"
     headers = {'Cookie': f'session={session_cookie}'}
     response = requests.get(url, headers=headers)
