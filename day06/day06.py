@@ -5,24 +5,17 @@ from utils import get_input
 # Part 1
 
 def get_race_records(lines):
-    length, record = list(map(int, lines[0].split()[1:])), list(map(int, lines[1].split()[1:]))
-    races = []
-    for i in range(len(length)):
-        races.append((length[i], record[i]))
-    return races
+    lengths = list(map(int, lines[0].split()[1:]))
+    records = list(map(int, lines[1].split()[1:]))
+    return list(zip(lengths, records))
 
 
 def mult_num_ways_to_win(races):
-    mult = 1
+    result = 1
     for time, dist in races:
-        num_ways = 0
-        for charge_time in range(time):
-            travel_time = time - charge_time
-            travel = charge_time * travel_time
-            if travel > dist:
-                num_ways += 1
-        mult *= num_ways
-    return mult
+        num_ways = sum(travel > dist for charge_time in range(time) for travel in [charge_time * (time - charge_time)])
+        result *= num_ways
+    return result
 
 # Part 2
 
@@ -32,13 +25,7 @@ def get_new_race_records(lines):
 
 def num_ways_to_win(race):
     time, dist = race
-    num_ways = 0
-    for charge_time in range(time):
-        travel_time = time - charge_time
-        travel = charge_time * travel_time
-        if travel > dist:
-            num_ways += 1
-    return num_ways
+    return sum(charge_time * (time - charge_time) > dist for charge_time in range(time))
 
 # -------- MAIN FUNCTION -------- #
 def main():
