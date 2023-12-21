@@ -28,45 +28,31 @@ def traverse(arr):
 
     start = find_start(arr)
     i, j = start
-
-    prev_dir = None
-    next_dir = get_starting_dir(arr, i, j)
+    dir = get_starting_dir(arr, i, j)
 
     loop = ['S']
-    loop_indices = set()
-    loop_indices.add((i, j))
-    i += next_dir[0]
-    j += next_dir[1]
+    loop_indices = {(i, j)}
+    i, j = i + dir[0], j + dir[1]
+
+    direction_changes = {
+        '|': lambda d: d,
+        '-': lambda d: d,
+        'L': lambda d: (d[0] - 1, d[1] + 1),
+        'J': lambda d: (d[0] - 1, d[1] - 1),
+        '7': lambda d: (d[0] + 1, d[1] - 1),
+        'F': lambda d: (d[0] + 1, d[1] + 1)
+    }
 
     while arr[i][j] != 'S':
         pipe = arr[i][j]
         loop.append(pipe)
         loop_indices.add((i, j))
-        prev_dir = next_dir
-        if pipe == '|' or pipe == '-':
-            next_dir = prev_dir
-        elif pipe == 'L':
-            if prev_dir == (0, -1):
-                next_dir = (-1, 0)
-            elif prev_dir == (1, 0):
-                next_dir = (0, 1)
-        elif pipe == 'J':
-            if prev_dir == (0, 1):
-                next_dir = (-1, 0)
-            elif prev_dir == (1, 0):
-                next_dir = (0, -1)
-        elif pipe == '7':
-            if prev_dir == (0, 1):
-                next_dir = (1, 0)
-            elif prev_dir == (-1, 0):
-                next_dir = (0, -1)
-        elif pipe == 'F':
-            if prev_dir == (0, -1):
-                next_dir = (1, 0)
-            elif prev_dir == (-1, 0):
-                next_dir = (0, 1)
-        i += next_dir[0]
-        j += next_dir[1]
+
+        if pipe in direction_changes:
+            dir = direction_changes[pipe](dir)
+
+        i += dir[0]
+        j += dir[1]
 
     return len(loop) // 2, loop_indices
 
